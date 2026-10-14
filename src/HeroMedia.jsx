@@ -60,7 +60,7 @@ export default function HeroMedia({ artwork, onOpen, videoRef, active = true, on
 
   useEffect(() => {
     if (!imageLoaded || !active || revealed || failed) return;
-    const timer = window.setTimeout(() => setDelayElapsed(true), 2000);
+    const timer = window.setTimeout(() => setDelayElapsed(true), 3000);
     return () => window.clearTimeout(timer);
   }, [imageLoaded, active, revealed, failed, cycle]);
 
