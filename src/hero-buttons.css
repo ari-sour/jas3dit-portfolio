@@ -1,0 +1,41 @@
+.hero .actions .hero-pill{position:relative;isolation:isolate;background:transparent;border:1px solid #c0b8dc;color:#f6f3ff;box-shadow:none;transform:none;transition:border-color 300ms ease,box-shadow 300ms ease;overflow:hidden}
+.hero .actions .hero-pill:hover{transform:none}
+.hero-pill .pill-label{font-size:inherit;line-height:inherit;position:relative;z-index:2;text-shadow:0 1px 5px #090711,0 0 8px #090711cc}
+.hero-pill .pill-arrow{position:relative;z-index:2;font-size:22px;line-height:1;text-shadow:0 1px 5px #090711}
+.hero-pill .pill-effects{position:absolute;inset:0;z-index:0;border-radius:inherit;opacity:0;pointer-events:none;transition:opacity 300ms ease;overflow:hidden}
+.hero-pill .pill-effects *{pointer-events:none}
+.hero-pill.is-engaged .pill-effects{opacity:1}
+.hero-pill.is-pressed .pill-effects{opacity:.75}
+.hero .actions .hero-pill-purple.is-pressed{border-color:#d7c0fc;box-shadow:inset 0 0 16px #a446ef35}
+.hero .actions .hero-pill-detective.is-pressed{border-color:#95e3f7;box-shadow:inset 0 0 16px #35c3ee30}
+.hero-pill.is-pressed .orb-carrier{opacity:.7;left:9px}
+.hero-pill.is-pressed .magnifier{opacity:.8}
+.hero-pill.is-pressed .detective-details{opacity:.35}
+.hero .actions .hero-pill-purple.is-engaged{border-color:#c494ff;box-shadow:inset 0 0 14px #a446ef25,0 0 12px #9b41ee25}
+.hero .actions .hero-pill-detective.is-engaged{border-color:#90d9ed;box-shadow:inset 0 0 14px #2dbeef20,0 0 12px #3cb4e525}
+.hero-pill .orb-carrier{position:absolute;left:calc(100% - 48px);top:50%;width:50px;height:50px;margin-top:-25px;opacity:0}
+.purple-orb{width:100%;height:100%;filter:drop-shadow(0 0 4px #a836f0)}
+.energy-trail{position:absolute;inset:0;background:linear-gradient(90deg,#a24be500,#c167f037,#a84ce417,#a24be500);transform:translateX(100%);opacity:0}
+.energy-arcs{position:absolute;inset:0;width:100%;height:100%;opacity:0}
+.hero-pill-purple.effects-running .orb-carrier{animation:orb-charge-sweep 1500ms cubic-bezier(.4,0,.2,1) both}
+.hero-pill-purple.effects-running .purple-orb{animation:orb-idle 5s ease-in-out 1500ms infinite}
+.hero-pill-purple.effects-running .energy-trail{animation:purple-trail 1500ms ease both}
+.hero-pill-purple.effects-running .energy-arcs{animation:arcs-idle 5s ease-in-out 1100ms infinite}
+.detective-details{position:absolute;inset:0;width:100%;height:100%;opacity:0}
+.magnifier{position:absolute;right:28px;top:50%;width:34px;height:34px;margin-top:-17px;opacity:0;filter:drop-shadow(0 0 3px #52c9fc)}
+.scan-beam{position:absolute;top:0;bottom:0;left:0;width:36%;background:linear-gradient(90deg,#40c8ff00,#63d9ff25,#bcf3ff60,#40c8ff00);opacity:0}
+.hero-pill-detective.effects-running .magnifier{animation:lens-charge 700ms ease both}
+.hero-pill-detective.effects-running .lens-glint{animation:lens-idle 5s ease-in-out 1500ms infinite}
+.hero-pill-detective.effects-running .detective-details{animation:deduction-reveal 1500ms ease both}
+.hero-pill-detective.effects-running .scan-beam{animation:deduction-sweep 1500ms ease both,scan-idle 7s ease-in-out 1500ms infinite}
+@keyframes orb-charge-sweep{0%{left:calc(100% - 48px);opacity:0;transform:scale(.2)}25%{left:calc(100% - 48px);opacity:.9;transform:scale(.9)}42%{left:calc(100% - 48px);opacity:1;transform:scale(1)}100%{left:9px;opacity:.7;transform:scale(.8)}}
+@keyframes purple-trail{0%,35%{opacity:0;transform:translateX(80%)}65%{opacity:.8}100%{opacity:0;transform:translateX(-80%)}}
+@keyframes orb-idle{0%,100%{transform:rotate(0);opacity:.7}50%{transform:rotate(20deg);opacity:.9}}
+@keyframes arcs-idle{0%,100%{opacity:.12;transform:translateX(0)}50%{opacity:.35;transform:translateX(-3px)}}
+@keyframes lens-charge{from{opacity:0;transform:scale(.4)}to{opacity:.85;transform:scale(1)}}
+@keyframes deduction-reveal{0%,40%{opacity:0}100%{opacity:.48}}
+@keyframes deduction-sweep{0%,35%{opacity:0;transform:translateX(250%)}50%{opacity:.8}100%{opacity:0;transform:translateX(-100%)}}
+@keyframes scan-idle{0%,100%{opacity:.08;transform:translateX(230%)}50%{opacity:.2;transform:translateX(-100%)}}
+@keyframes lens-idle{0%,100%{opacity:.15}50%{opacity:.7}}
+@media(hover:none){.hero .actions .hero-pill:active .pill-effects{opacity:.75}.hero .actions .hero-pill:active{border-color:#d7c0fc;box-shadow:inset 0 0 16px #a446ef35}.hero-pill:active .orb-carrier{opacity:.7;left:9px}.hero-pill:active .magnifier{opacity:.8}.hero-pill:active .detective-details{opacity:.35}.hero .actions .hero-pill-detective:active{border-color:#95e3f7;box-shadow:inset 0 0 16px #35c3ee30}}
+@media(prefers-reduced-motion:reduce){.hero-pill.is-engaged .orb-carrier{left:9px;opacity:.65}.hero-pill.is-engaged .energy-arcs{opacity:.2}.hero-pill.is-engaged .magnifier{opacity:.8}.hero-pill.is-engaged .detective-details{opacity:.4}.hero-pill.is-engaged .scan-beam{opacity:.12;transform:none}.hero-pill .pill-effects{transition:none}.hero-pill .pill-effects *{animation:none!important}}
