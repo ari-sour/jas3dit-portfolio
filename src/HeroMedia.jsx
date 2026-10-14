@@ -10,10 +10,11 @@ function mediaTime(seconds) {
   return `${Math.floor(value / 60)}:${String(value % 60).padStart(2, '0')}`;
 }
 
-export default function HeroMedia({ artwork, onOpen, videoRef, active = true, onCopyPlayback }) {
+export default function HeroMedia({ artwork, onOpen, onProjectOpen, videoRef, active = true, onCopyPlayback }) {
   const imageRef = useRef(null);
   const alive = useRef(true);
   const attempting = useRef(false);
+  const playbackWatchdogs = useRef(new Set());
   const activeRef = useRef(active);
   activeRef.current = active;
   const autoStarted = useRef(false);
@@ -55,7 +56,15 @@ export default function HeroMedia({ artwork, onOpen, videoRef, active = true, on
     alive.current = true;
     if (imageRef.current?.complete && imageRef.current.naturalWidth > 0) setImageLoaded(true);
     const video = videoRef.current;
-    return () => { alive.current = false; video?.pause(); };
+    video.defaultMuted = true;
+    video.muted = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    return () => {
+      alive.current = false; video?.pause();
+      playbackWatchdogs.current.forEach(timer => window.clearTimeout(timer));
+      playbackWatchdogs.current.clear();
+    };
   }, []);
 
   useEffect(() => {
@@ -64,30 +73,37 @@ export default function HeroMedia({ artwork, onOpen, videoRef, active = true, on
     return () => window.clearTimeout(timer);
   }, [imageLoaded, active, revealed, failed, cycle]);
 
-  async function play(restart = false) {
+  async function play(restart = false, userInitiated = false) {
     const video = videoRef.current;
-    if (!video || failed || attempting.current || !activeRef.current) return;
+    if (!video || failed || (attempting.current && !userInitiated) || !activeRef.current) return;
     attempting.current = true;
-    if (restart) video.currentTime = 0;
     setEnded(false);
+    const watchdog = window.setTimeout(() => {
+      playbackWatchdogs.current.delete(watchdog);
+      if (alive.current && activeRef.current && video.paused && !video.error) setBlocked(true);
+    }, 6000);
+    playbackWatchdogs.current.add(watchdog);
     try {
+      video.muted = muted;
+      video.defaultMuted = muted;
+      if (restart && video.readyState >= 1) video.currentTime = 0;
       await video.play();
       if (!activeRef.current) video.pause();
       if (alive.current) setBlocked(false);
     } catch (error) {
       if (alive.current) {
-        if (error.name === 'NotAllowedError') { setBlocked(true); onCopyPlayback?.(false); }
-        else if (error.name !== 'AbortError') { setFailed(true); setRevealed(false); onCopyPlayback?.(false); }
+        if (error.name === 'NotSupportedError' || video.error) { setFailed(true); setRevealed(false); onCopyPlayback?.(false); }
+        else { setBlocked(true); onCopyPlayback?.(false); }
       }
-    } finally { attempting.current = false; }
+    } finally { window.clearTimeout(watchdog); playbackWatchdogs.current.delete(watchdog); attempting.current = false; }
   }
 
   useEffect(() => {
-    if (active && delayElapsed && ready && !failed && !autoStarted.current) {
+    if (active && delayElapsed && !failed && !autoStarted.current) {
       autoStarted.current = true;
       play(true);
     }
-    // One automatic attempt per image/trailer cycle, once playback is ready.
+    // Request playback after the intro, even if mobile preload has not fired canplay.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [delayElapsed, ready, failed, active]);
 
@@ -135,12 +151,12 @@ export default function HeroMedia({ artwork, onOpen, videoRef, active = true, on
           style={{ '--seek-progress': `${duration ? position / duration * 100 : 0}%` }}
           onPointerDown={() => setScrubbing(true)} onBlur={() => setScrubbing(false)}
           onChange={event => { const time = Number(event.target.value); videoRef.current.currentTime = time; setPosition(time); }} />
-        <button aria-label={playing ? 'Pause trailer' : ended ? 'Play trailer from beginning' : 'Play trailer'} title={playing ? 'Pause trailer' : 'Play trailer'} onClick={() => playing ? videoRef.current.pause() : play(ended || !revealed)}><MediaIcon type={playing ? 'pause' : 'play'} /></button>
+        <button aria-label={playing ? 'Pause trailer' : ended ? 'Play trailer from beginning' : 'Play trailer'} title={playing ? 'Pause trailer' : 'Play trailer'} onClick={() => playing ? videoRef.current.pause() : play(ended || !revealed, true)}><MediaIcon type={playing ? 'pause' : 'play'} /></button>
         <button aria-label={muted ? 'Enable trailer sound' : 'Mute trailer sound'} title={muted ? 'Enable sound' : 'Mute sound'} onClick={() => { const next = !muted; videoRef.current.muted = next; setMuted(next); }} aria-pressed={!muted}><MediaIcon type={muted ? 'muted' : 'speaker'} /></button>
-        <button aria-label="Replay trailer from beginning" title="Replay trailer" onClick={() => play(true)}><MediaIcon type="replay" /></button>
+        <button aria-label="Replay trailer from beginning" title="Replay trailer" onClick={() => play(true, true)}><MediaIcon type="replay" /></button>
       </div>}
       <span className="sr-only" role="status">{failed ? 'Trailer unavailable. Original artwork displayed.' : blocked ? 'Select Play trailer to start playback.' : ended ? 'Trailer finished. Artwork displayed before the next playback.' : ''}</span>
     </div>
-    <div className="art-caption"><div><h2>{artwork.caption}</h2><p>Personal <span aria-hidden="true">·</span> Recent project</p></div><button className="artwork-open" onClick={() => onOpen(artwork)} aria-label={`View full image: ${artwork.title}`}><span className="arrow circle" aria-hidden="true">↗</span></button></div>
+    <div className="art-caption"><div><h2>{artwork.caption}</h2><p>Personal <span aria-hidden="true">·</span> Recent project</p></div><button className="artwork-open" onClick={() => (onProjectOpen || onOpen)(artwork)} aria-label={`Open Gojo artbook: ${artwork.title}`}><span className="arrow circle" aria-hidden="true">↗</span></button></div>
   </div>;
 }

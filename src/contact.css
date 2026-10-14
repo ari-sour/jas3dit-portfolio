@@ -1,0 +1,25 @@
+.contact-direct .contact-heading-row{padding-bottom:28px;border-bottom:0;margin-bottom:32px}
+.contact-direct .contact-heading-row .eyebrow{margin-bottom:10px}
+.contact-direct .contact-columns{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(35px,7vw,110px);align-items:start}
+.contact-direct .contact-information h3{font-size:clamp(26px,2.7vw,37px);line-height:1.25;letter-spacing:-.035em;font-weight:600;margin-bottom:16px}
+.contact-direct .contact-intro{font-size:14px;max-width:360px;margin-bottom:20px}
+.contact-direct .contact-email-link{display:inline-flex;align-items:center;font-size:14px;border-bottom:1px solid #bea1de70;padding-bottom:5px;max-width:100%;overflow-wrap:anywhere}
+.contact-direct .contact-email-link:hover{color:#dbc2f9}
+.contact-direct .contact-channels{margin:30px 0;display:grid;gap:20px}
+.contact-direct .contact-channels dt,.contact-direct .contact-profiles>p{font-size:11px;color:#a998bd;margin-bottom:7px;letter-spacing:.08em}
+.contact-direct .contact-channels dd{margin:0;font-size:14px;line-height:1.6;color:#e2dce9}
+.contact-direct .contact-channels a:hover{color:#d6b0fa}
+.contact-direct .contact-profiles .socials{gap:14px 22px;font-size:13px;line-height:1.7}
+.contact-direct .contact-profiles .socials a{min-height:44px}
+.contact-direct .contact-form{min-width:0;display:flex;flex-direction:column}
+.contact-direct .contact-form label{font-size:13px;color:#bdb0cc;margin-bottom:8px}
+.contact-direct .contact-form input,.contact-direct .contact-form textarea{width:100%;min-width:0;padding:12px 0;color:#f1eafa;font:inherit;font-size:15px;background:transparent;border:0;border-bottom:1px solid #c7b5e133;border-radius:0;min-height:48px;margin-bottom:24px;box-shadow:none}
+.contact-direct .contact-form textarea{resize:vertical;min-height:130px;line-height:1.6;margin-bottom:10px}
+.contact-direct .contact-form input:focus-visible,.contact-direct .contact-form textarea:focus-visible{outline:2px solid #bd95e1;outline-offset:5px;border-bottom-color:#d3b4ef}
+.contact-direct .contact-form-hint{font-size:11px;color:#a898bb;margin-bottom:20px}
+.contact-direct .contact-submit{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.contact-direct .contact-submit .button{font-size:13px;min-height:48px;gap:18px}
+.contact-direct .contact-submit>p{font-size:11px;max-width:210px;color:#aa9aba}
+.contact-direct>.copyright{margin-top:32px}
+@media(max-width:760px){.contact-direct .contact-columns{grid-template-columns:1fr;gap:34px}.contact-direct .contact-heading-row{margin-bottom:24px;padding-bottom:24px}.contact-direct .contact-channels{margin-block:22px;gap:16px}.contact-direct .contact-information h3{font-size:32px}.contact-direct .contact-profiles .socials{gap:12px 22px}.contact-direct .contact-submit{gap:10px}.contact-direct .contact-submit>p{max-width:none}}
+@media(max-height:700px) and (min-width:761px){.contact-direct .contact-heading-row{padding-bottom:20px;margin-bottom:24px}.contact-direct .contact-form textarea{min-height:90px}.contact-direct .contact-form input{margin-bottom:18px}.contact-direct .contact-channels{margin-block:22px;gap:14px}}

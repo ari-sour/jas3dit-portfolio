@@ -15,13 +15,11 @@ html,body,#root{height:100%;overflow:hidden}
 .digital-book .about-inner{grid-template-columns:1fr minmax(180px,360px);gap:clamp(30px,7vw,100px)}
 .digital-book .about-logo{width:min(100%,300px);border-radius:30px}
 .digital-book .about p{font-size:clamp(14px,1.3vw,17px)}
+.digital-book .about .established-label{font-size:11px;color:#c3a4df;letter-spacing:.14em;text-transform:uppercase;margin:0 0 16px;line-height:1.5}
 .digital-book .bio{max-width:680px}
 .digital-book .contact h2{font-size:clamp(34px,4.5vw,65px)}
 .digital-book .contact-top{flex-wrap:wrap;gap:30px}
 .digital-book .contact footer{margin-top:50px}
-.gallery-pagination{display:flex;justify-content:center;align-items:center;gap:25px;margin-top:24px;font-size:12px;color:#c4b3db}
-.gallery-pagination button{min-height:44px;background:transparent;color:#d1afea;padding:8px 12px;border:1px solid #ad8ad62b;border-radius:24px}
-.gallery-pagination button:disabled{opacity:.3;cursor:not-allowed}
 .home-inactive .hero-backdrop{opacity:0!important}
 .digital-book:has(.hero-backdrop.is-active).home-active .header{background:#0907118f}
 /* The opaque media remains independent from its transparent caption. */
@@ -60,8 +58,8 @@ html,body,#root{height:100%;overflow:hidden}
 @media(max-width:760px){.digital-book .hero-backdrop video{filter:none;transform:none}}
 @media(max-width:900px){.page-content>.container{width:calc(100% - 48px)}.digital-book .about-inner{grid-template-columns:1fr 180px}.digital-book .works .gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.digital-book .hero h1{font-size:clamp(36px,5vw,52px)}}
 @media(max-width:760px){.page-content{padding-block:18px;align-items:flex-start}.page-content>.container{width:calc(100% - 30px)}.page-content>.hero{align-self:flex-start;gap:24px}.digital-book .hero h1{font-size:clamp(40px,8vw,60px)}.digital-book .about-inner{grid-template-columns:1fr}.digital-book .about-logo{justify-self:start;width:170px;margin-top:10px}.digital-book .about-inner{width:calc(100% - 30px)}.digital-book .contact-top{display:grid}.digital-book .contact footer{margin-top:30px}}
-@media(max-width:540px){.digital-book .works .gallery-grid{grid-template-columns:1fr}.gallery-pagination{gap:12px}.gallery-pagination button{font-size:11px}.page-content{padding-block:10px}}
-@media(max-height:650px) and (min-width:761px){.page-content{padding-block:15px}.digital-book .hero h1{font-size:clamp(34px,4vw,52px)}.digital-book .eyebrow{margin-bottom:8px}.digital-book .short-line{margin-block:16px}.digital-book .section-top{margin-bottom:15px}.digital-book .section h2{font-size:38px}.digital-book .gallery-pagination{margin-top:10px}}
+@media(max-width:540px){.digital-book .works .gallery-grid{grid-template-columns:1fr}.page-content{padding-block:10px}}
+@media(max-height:650px) and (min-width:761px){.page-content{padding-block:15px}.digital-book .hero h1{font-size:clamp(34px,4vw,52px)}.digital-book .eyebrow{margin-bottom:8px}.digital-book .short-line{margin-block:16px}.digital-book .section-top{margin-bottom:15px}.digital-book .section h2{font-size:38px}}
 @media(prefers-reduced-motion:reduce){.page-out,.page-in{animation:none;transform:none;box-shadow:none}.page-out{opacity:0}.hero-backdrop{display:none}}
 
 /* One consistent structure for every Works card; no viewport-height media caps. */

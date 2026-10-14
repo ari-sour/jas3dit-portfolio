@@ -28,8 +28,8 @@ npm run preview
 
 The Gojo card opens a full-screen project at `#works/gojo/1`. Exactly three showcase groups use original local assets in `public/assets/gojo`, preserving their actual extensions and full compositions:
 
-1. `jas-a-sculpt-gojo-2.jpg`, `jas-a-sculpt-gojo-3.jpg` — side by side.
-2. `jas-a-sculpt-gojo-8.jpg`, `jas-a-sculpt-gojo-5.jpg`, `jas-a-sculpt-gojo-6.jpg`, `jas-a-sculpt-gojo-7.jpg` — a 2 × 2 grid in reading order.
+1. `jas-a-sculpt-gojo-6.jpg`, `jas-a-sculpt-gojo-2.jpg` — side by side.
+2. `jas-a-sculpt-gojo-3.jpg`, `jas-a-sculpt-gojo-8.jpg`, `jas-a-sculpt-gojo-5.jpg`, `jas-a-sculpt-gojo-7.jpg` — a 2 × 2 grid in reading order.
 3. `jas-a-sculpt-gojo-9.webp`, `jas-a-sculpt-gojo-10.webp` — vertically stacked comparison sheets.
 
 No `gojo-4` is included. All eight files were found in Downloads and copied locally. Scroll, keyboard navigation, and small header controls change showcase pages using vertical slides. Mobile groups stack their images and scroll internally before another gesture advances the gallery. The last page never exits the project automatically. Individual images open a zoomable lightbox with Escape and focus restoration. Back to Works preserves the underlying gallery state and restores focus to the Gojo card. Project hashes support refresh and browser back/forward.
@@ -40,11 +40,11 @@ An enlarged, darkened background trailer fades in behind only Home and the heade
 
 The supplied original Gojo artwork and official logo are stored in `public/assets` and used directly. The Gojo image retains its full 16:9 composition. The reference screenshot is not used as a website image.
 
-All four Works projects now use original local artwork from the supplied files. No gallery artwork placeholders remain. Images preserve their source compositions and embedded branding.
+All nine Works projects now use original local artwork from the supplied files. No gallery artwork placeholders remain. Images preserve their source compositions and embedded branding.
 
 Publication dates are unverified. Set `date` to a verified ISO date to enable chronological ordering. Most Viewed remains disabled until real view data and a corresponding sorting implementation are connected.
 
-The collection dialog contains all locally available works and links to the complete ArtStation portfolio. Contact actions use real email, phone, and social links; there is no unconnected submission form.
+The collection dialog contains all locally available works and links to the complete ArtStation portfolio. Contact uses a direct two-column layout with all email, phone, location, and profile links visible. The name/email/message form validates required fields and opens a prefilled mailto draft in the user’s email app; it does not send messages from the website or show submission success.
 
 ### Giyu project in Works
 
@@ -61,3 +61,13 @@ Home copy changes only on foreground media events: playing reveals “Hollow Pur
 ### Kaiju No. 8 project
 
 All seven original `jas-a-sculpt-kafka-1.webp` through `-7.webp` images were found in Downloads and copied to `public/assets/kaiju`. The Works cover uses image 1. Four project pages show 1/2, 3/4, 5/6, then 7, retaining complete compositions and branding. Routes `#works/kaiju/1` through `/4` support refresh and history. The shared viewer provides mobile stacking, isolated scrolling, zoom, and Back to Works focus restoration.
+
+### Separate Yuta and Kaitou Kid projects
+
+Yuta Okkotsu’s Pure & Mutual Love and Phantom Thief, Moonlight Magician: Kaitou Kid are separate Works cards and project galleries. Each has nine original WebP images copied from Downloads into its own directory (`public/assets/yuta` and `public/assets/kaito`). Each gallery shows image 1 alone, then pairs 2/3, 4/5, 6/7, and 8/9, using distinct routes `#works/yuta/1` through `/5` and `#works/kaito/1` through `/5`. Their assets and gallery state are never combined.
+
+### Works gallery and reference order
+
+Works now opens directly as the compact thumbnail gallery, with names shown on hover/focus. The approved reference order is Goku, Yuta, Kaitou Kid, Unlimited Void, Giyu, Estes, Nuke Hollow Purple, Kaiju, Igris. Tiles use tightly spaced, filled previews; project galleries retain complete, uncropped originals. No dates are fabricated.
+
+Unlimited Void is a separate project from the Home Nuke Hollow Purple artwork; all seven `gojo-void-1.webp` through `-7.webp` originals are local. Estes uses all five `jas-artworks-estes-1.webp` through `-5.webp` originals. Goku uses all eight actual Downloads files: `jas-artworks-1-goku-4.jpg`, `jas-artworks-2-goku-1.jpg`, `jas-artworks-3-goku-2.jpg`, `jas-artworks-4-goku-3.jpg`, `jas-artworks-5-close-up-1.jpg`, `jas-artworks-6-close-up-2.jpg`, `jas-artworks-7-dragon-close-up-1.jpg`, and `jas-artworks-8-dragon-close-up-2.jpg`. Each project has its own route and full-image zoom gallery.
