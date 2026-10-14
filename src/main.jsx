@@ -14,7 +14,7 @@ const gojo = { id: 'gojo', title: 'Gojo Satoru’s Last Stand: Nuke Hollow Purpl
 const featured = [
   { id: 'giyu', title: 'Giyu Tomioka 10th Form: Seseiruten', image: '/assets/giyu/jas-artworks-giyu-1.webp', alt: 'Giyu Tomioka sculpture surrounded by a blue water dragon, splashing water, and a sculpted rubble base.', tone: 'blue', type: '3D Sculpt', date: null },
   { id: 'igris', title: 'Dark Knight Igris', image: '/assets/igris/jas-a-sculpt-igris-1.webp', alt: 'Dark Knight Igris sculpture with a red plume, glowing blue armor, sword, and a rubble base.', tone: 'purple', type: '3D Sculpt', date: null },
-  { id: 'kaiju', title: 'Kaiju No. 8', image: null, tone: 'teal', type: '3D Sculpt', date: null },
+  { id: 'kaiju', title: 'Kaiju No. 8', image: '/assets/kaiju/jas-a-sculpt-kafka-1.webp', alt: 'Kafka Hibino and Kaiju No. 8 sculpture surrounded by teal energy and rubble, with the original branding and base.', tone: 'teal', type: '3D Sculpt', date: null },
 ];
 const allWorks = [gojo, ...featured];
 const socials = [ ['Facebook', 'https://www.facebook.com/jas3ditcustomstudios/'], ['Instagram', 'https://www.instagram.com/jas3dit/'], ['ArtStation', 'https://www.artstation.com/jasasculpt'] ];
@@ -85,7 +85,7 @@ function WorkCard({ work, onOpen }) {
   </button>;
 }
 function FeaturedWorks({ onOpen, onGallery }) {
-  const [galleryPage, setGalleryPage] = useState(0);
+  const [galleryPage, setGalleryPage] = useState(() => projectIdFromHash() === 'kaiju' ? 1 : 0);
   const sorted = [...allWorks].sort((a, b) => (b.date ? Date.parse(b.date) : 0) - (a.date ? Date.parse(a.date) : 0));
   const count = Math.ceil(sorted.length / 3);
   return <section className="works container section" id="works" aria-labelledby="works-heading">
@@ -95,7 +95,7 @@ function FeaturedWorks({ onOpen, onGallery }) {
     </div>
     <div id="recent-works" role="tabpanel" aria-labelledby="recent-tab" className="gallery-grid">{sorted.slice(galleryPage * 3, galleryPage * 3 + 3).map(work => <WorkCard key={work.id} work={work} onOpen={onOpen} />)}</div>
     <div className="gallery-pagination" aria-label="Artwork gallery pagination"><button disabled={galleryPage === 0} onClick={() => setGalleryPage(galleryPage - 1)}>← Previous works</button><span aria-live="polite">{galleryPage + 1} / {count}</span><button disabled={galleryPage === count - 1} onClick={() => setGalleryPage(galleryPage + 1)}>Next works →</button></div>
-    <p className="asset-note">Kaiju No. 8 images pending. Publication dates are unverified; works are shown in the requested order.</p>
+    <p className="asset-note">Publication dates are unverified; works are shown in the requested order.</p>
   </section>;
 }
 const services = [ ['3D Printing', 'FDM & Resin'], ['3D Modeling', 'Anime, Trophies & CAD'], ['3D Scanning', 'On-site & home service'], ['Figure Painting', ''], ['Resin Figure Repaint & Repair', ''], ['Bodykits Fabrication', ''] ];
@@ -168,7 +168,7 @@ function App() {
     return () => window.clearTimeout(timer);
   }, [projectPage, projectId]);
   const openWork = work => {
-    if (['gojo', 'giyu', 'igris'].includes(work.id)) { setOverlay(null); setProjectHash(0, work.id); }
+    if (['gojo', 'giyu', 'igris', 'kaiju'].includes(work.id)) { setOverlay(null); setProjectHash(0, work.id); }
     else setOverlay(work);
   };
   const backToWorks = () => {
@@ -183,7 +183,7 @@ function App() {
     () => <Contact />,
   ]} /></div>
     {projectPage !== null && <ProjectDetail key={projectId} projectId={projectId} page={projectPage} onBack={backToWorks} />}
-    {overlay && <Overlay title={overlay === 'gallery' ? 'The collection' : overlay.title} onClose={close} className={overlay === 'gallery' ? 'gallery-dialog' : 'lightbox'}>{overlay === 'gallery' ? <><p className="dialog-intro">All works available in this local collection. Visit <a href={socials[2][1]} target="_blank" rel="noreferrer">Jas’s ArtStation portfolio ↗</a> for the complete online portfolio.</p><div className="gallery-grid">{allWorks.map(work => <WorkCard key={work.id} work={work} onOpen={work => ['gojo', 'giyu', 'igris'].includes(work.id) ? openWork(work) : setOverlay({ ...work, fromGallery: true })} />)}</div></> : <>{overlay.fromGallery && <button className="text-link back-link" onClick={() => setOverlay('gallery')}>← Back to collection</button>}{overlay.image ? <img className="lightbox-image" src={overlay.image} alt={overlay.alt} /> : <><Placeholder work={overlay} /><p className="dialog-intro">This is a temporary placeholder. The official {overlay.title} image has not been supplied and could not be retrieved from ArtStation.</p><a className="text-link" href={socials[2][1]} target="_blank" rel="noreferrer">Visit the artist’s portfolio ↗</a></>}</>}</Overlay>}
+    {overlay && <Overlay title={overlay === 'gallery' ? 'The collection' : overlay.title} onClose={close} className={overlay === 'gallery' ? 'gallery-dialog' : 'lightbox'}>{overlay === 'gallery' ? <><p className="dialog-intro">All works available in this local collection. Visit <a href={socials[2][1]} target="_blank" rel="noreferrer">Jas’s ArtStation portfolio ↗</a> for the complete online portfolio.</p><div className="gallery-grid">{allWorks.map(work => <WorkCard key={work.id} work={work} onOpen={work => ['gojo', 'giyu', 'igris', 'kaiju'].includes(work.id) ? openWork(work) : setOverlay({ ...work, fromGallery: true })} />)}</div></> : <>{overlay.fromGallery && <button className="text-link back-link" onClick={() => setOverlay('gallery')}>← Back to collection</button>}{overlay.image ? <img className="lightbox-image" src={overlay.image} alt={overlay.alt} /> : <><Placeholder work={overlay} /><p className="dialog-intro">This is a temporary placeholder. The official {overlay.title} image has not been supplied and could not be retrieved from ArtStation.</p><a className="text-link" href={socials[2][1]} target="_blank" rel="noreferrer">Visit the artist’s portfolio ↗</a></>}</>}</Overlay>}
   </div>;
 }
 createRoot(document.getElementById('root')).render(<App />);

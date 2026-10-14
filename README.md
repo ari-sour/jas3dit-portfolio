@@ -32,7 +32,7 @@ The Gojo card opens a full-screen project at `#works/gojo/1`. Exactly three show
 2. `jas-a-sculpt-gojo-8.jpg`, `jas-a-sculpt-gojo-5.jpg`, `jas-a-sculpt-gojo-6.jpg`, `jas-a-sculpt-gojo-7.jpg` — a 2 × 2 grid in reading order.
 3. `jas-a-sculpt-gojo-9.webp`, `jas-a-sculpt-gojo-10.webp` — vertically stacked comparison sheets.
 
-No `gojo-4` is included. All eight files were found in Downloads and copied locally. Scroll, keyboard navigation, and small header controls change showcase pages using vertical slides. Mobile groups stack their images and scroll internally before another gesture advances the gallery. The last page never exits the project automatically. Individual images open a zoomable lightbox with Escape and focus restoration. Back to Works preserves the underlying gallery state and restores focus to the Gojo card. Project hashes support refresh and browser back/forward. Kaiju retains its existing behavior.
+No `gojo-4` is included. All eight files were found in Downloads and copied locally. Scroll, keyboard navigation, and small header controls change showcase pages using vertical slides. Mobile groups stack their images and scroll internally before another gesture advances the gallery. The last page never exits the project automatically. Individual images open a zoomable lightbox with Escape and focus restoration. Back to Works preserves the underlying gallery state and restores focus to the Gojo card. Project hashes support refresh and browser back/forward.
 
 The hero displays the original image for three seconds after image load, then flips to `/assets/gojo-trailer.mp4` once playback can begin. This is a local copy of the supplied `Gojo Final.mp4`. Playback is muted and inline, with play/pause, sound, and replay controls. The full trailer alternates with the original image, with a three-second image interval between plays. If autoplay is blocked, a Play trailer button appears; media errors retain the image. Reduced-motion users receive a short fade instead of the flip. Both media faces use a fixed 16:9 frame and contain their original proportions.
 
@@ -40,7 +40,7 @@ An enlarged, darkened background trailer fades in behind only Home and the heade
 
 The supplied original Gojo artwork and official logo are stored in `public/assets` and used directly. The Gojo image retains its full 16:9 composition. The reference screenshot is not used as a website image.
 
-Kaiju No. 8 original images were not supplied. ArtStation blocked automated portfolio retrieval with HTTP 403. Their cards use explicitly labeled CSS placeholders, not substituted artwork. Add their original images to `public/assets` and update the `featured` records in `src/main.jsx` with image paths and descriptive alt text.
+All four Works projects now use original local artwork from the supplied files. No gallery artwork placeholders remain. Images preserve their source compositions and embedded branding.
 
 Publication dates are unverified. Set `date` to a verified ISO date to enable chronological ordering. Most Viewed remains disabled until real view data and a corresponding sorting implementation are connected.
 
@@ -57,3 +57,7 @@ Five original `jas-a-sculpt-igris-1.webp` through `-5.webp` images were copied f
 Foreground trailer controls are icon-only SVG buttons at the bottom-right, 36px on desktop and 44px on touch devices. Playing controls reveal on mouse hover or keyboard focus. Touch taps reveal them for 2.5 seconds; paused, ended, and blocked playback keep controls visible. Labels and native tooltips describe each action. All hide timers are cleaned up; reduced motion disables fades. Background audio remains muted.
 
 Home copy changes only on foreground media events: playing reveals “Hollow Purple. Brought to life.”, pause/buffering retain it, and ended/error/blocked playback restore the studio introduction. Ending also restores the original image and static background before the next three-second interval. Both copy versions occupy the same grid cells, reserving their largest responsive heights. Crossfade and 8px movement are disabled for reduced motion. Studio label, accent, and CTA links stay unchanged.
+
+### Kaiju No. 8 project
+
+All seven original `jas-a-sculpt-kafka-1.webp` through `-7.webp` images were found in Downloads and copied to `public/assets/kaiju`. The Works cover uses image 1. Four project pages show 1/2, 3/4, 5/6, then 7, retaining complete compositions and branding. Routes `#works/kaiju/1` through `/4` support refresh and history. The shared viewer provides mobile stacking, isolated scrolling, zoom, and Back to Works focus restoration.

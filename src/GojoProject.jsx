@@ -13,6 +13,17 @@ const descriptions = [
   ['Gojo Satoru expression and figure comparison sheet, first sheet', 'Gojo Satoru expression and figure comparison sheet, second sheet'],
 ];
 const projects = {
+  kaiju: {
+    title: 'Kaiju No. 8 — Kafka Hibino',
+    groups: [['jas-a-sculpt-kafka-1.webp', 'jas-a-sculpt-kafka-2.webp'], ['jas-a-sculpt-kafka-3.webp', 'jas-a-sculpt-kafka-4.webp'], ['jas-a-sculpt-kafka-5.webp', 'jas-a-sculpt-kafka-6.webp'], ['jas-a-sculpt-kafka-7.webp']],
+    descriptions: [
+      ['Kafka Hibino and Kaiju No. 8 sculpture with teal energy and a rubble base, first view', 'Kafka Hibino and Kaiju No. 8 sculpture, second view'],
+      ['Kafka Hibino and Kaiju No. 8 sculpture, third view', 'Kafka Hibino and Kaiju No. 8 sculpture, fourth view'],
+      ['Kafka Hibino and Kaiju No. 8 sculpture, fifth view', 'Kafka Hibino and Kaiju No. 8 sculpture, sixth view'],
+      ['Close view of Kafka Hibino and Kaiju No. 8 with teal energy effects'],
+    ],
+    layouts: ['two', 'two', 'two', 'single'],
+  },
   igris: {
     title: 'Dark Knight Igris',
     groups: [['jas-a-sculpt-igris-1.webp', 'jas-a-sculpt-igris-2.webp'], ['jas-a-sculpt-igris-3.webp', 'jas-a-sculpt-igris-4.webp'], ['jas-a-sculpt-igris-5.webp']],
@@ -31,8 +42,9 @@ const projects = {
   },
 };
 export function projectIdFromHash() {
-  const match = window.location.hash.match(/^#works\/(gojo|giyu|igris)(?:\/([1-3]))?$/);
-  return match && Number(match[2] || 1) <= projects[match[1]].groups.length ? match[1] : null;
+  const match = window.location.hash.match(/^#works\/(gojo|giyu|igris|kaiju)(?:\/(\d+))?$/);
+  const page = Number(match?.[2] || 1);
+  return match && page >= 1 && page <= projects[match[1]].groups.length ? match[1] : null;
 }
 export function projectPageFromHash() {
   if (!projectIdFromHash()) return null;
