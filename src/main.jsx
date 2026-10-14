@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
+import HeroMedia from './HeroMedia.jsx';
 
 const logo = '/assets/jas3dit-logo.jpg';
 const gojo = { id: 'gojo', title: 'Gojo Satoru’s Last Stand: Nuke Hollow Purple', caption: 'Gojo Satoru / Nuke Hollow Purple', image: '/assets/gojo-nuke-hollow-purple.jpg', alt: 'Gojo Satoru standing on a sculpted rubble base beneath a luminous purple energy sphere, surrounded by blue and purple effects.', type: 'Digital sculpt', date: null };
@@ -41,7 +42,7 @@ function Header() {
     <button ref={toggle} className={`menu-toggle ${open ? 'is-open' : ''}`} aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} aria-controls="main-nav" onClick={() => setOpen(!open)}><span /><span /></button>
     <nav ref={nav} id="main-nav" className={open ? 'nav open' : 'nav'} aria-label="Main navigation">
       {['Works', 'Services', 'About', 'Contact'].map(label => <a key={label} href={`#${label.toLowerCase()}`} onClick={() => setOpen(false)}>{label}</a>)}
-      <ButtonLink href="#contact" onClick={() => setOpen(false)}>Commission a piece</ButtonLink>
+      
     </nav>
   </div></header>;
 }
@@ -50,12 +51,8 @@ function Hero({ onOpen }) {
     <div className="hero-copy"><Eyebrow>Jas 3D It <span>Sculpture & fabrication</span></Eyebrow>
       <h1 id="hero-heading">Beyond the screen.<br /><span>Into your collection.</span></h1>
       <div className="short-line" /><p className="hero-description">Custom 3D sculptures, prints, and fabrication by Jas.</p>
-      <div className="actions"><ButtonLink href="#works">Explore the work</ButtonLink><ButtonLink href="#contact" secondary>Let’s create</ButtonLink></div>
     </div>
-    <button className="art-panel hero-art" onClick={() => onOpen(gojo)} aria-label={`View ${gojo.title}`}>
-      <div className="hero-image"><img src={gojo.image} alt={gojo.alt} fetchPriority="high" width="1920" height="1080" /></div>
-      <div className="art-caption"><div><h2>{gojo.caption}</h2><p>Digital sculpt <span aria-hidden="true">·</span> Featured project</p></div><Arrow circle /></div>
-    </button>
+    <HeroMedia artwork={gojo} onOpen={onOpen} />
   </section>;
 }
 function Placeholder({ work }) {
